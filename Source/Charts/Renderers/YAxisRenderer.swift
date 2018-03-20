@@ -168,7 +168,6 @@ open class YAxisRenderer: AxisRendererBase
             
             context.saveGState()
             defer { context.restoreGState() }
-            context.clip(to: self.gridClippingRect)
             
             context.setShouldAntialias(yAxis.gridAntialiasEnabled)
             context.setStrokeColor(yAxis.gridColor.cgColor)
@@ -213,7 +212,7 @@ open class YAxisRenderer: AxisRendererBase
         position: CGPoint)
     {
         context.beginPath()
-        context.move(to: CGPoint(x: viewPortHandler.contentLeft, y: position.y))
+        context.move(to: CGPoint(x: 0, y: position.y))
         context.addLine(to: CGPoint(x: viewPortHandler.contentRight, y: position.y))
         context.strokePath()
     }

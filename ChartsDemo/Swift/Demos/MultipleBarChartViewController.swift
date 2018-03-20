@@ -71,7 +71,7 @@ class MultipleBarChartViewController: DemoBaseViewController {
         leftAxis.valueFormatter = LargeValueFormatter()
         leftAxis.spaceTop = 0.35
         leftAxis.axisMinimum = 0
-        
+        leftAxis.xOffset = 20
         chartView.rightAxis.enabled = false
         
         sliderX.value = 10
