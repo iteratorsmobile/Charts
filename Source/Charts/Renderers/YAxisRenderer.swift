@@ -134,9 +134,14 @@ open class YAxisRenderer: AxisRendererBase
         
         let labelFont = yAxis.labelFont
         let labelTextColor = yAxis.labelTextColor
+        var yCenterOffset: CGFloat = 0
         
         let from = yAxis.isDrawBottomYLabelEntryEnabled ? 0 : 1
         let to = yAxis.isDrawTopYLabelEntryEnabled ? yAxis.entryCount : (yAxis.entryCount - 1)
+        
+        if to > 1 {
+            yCenterOffset = (positions[1].y - positions[0].y) / 2
+        }
         
         for i in stride(from: from, to: to, by: 1)
         {
@@ -145,7 +150,7 @@ open class YAxisRenderer: AxisRendererBase
             ChartUtils.drawText(
                 context: context,
                 text: text,
-                point: CGPoint(x: fixedPosition, y: positions[i].y + offset),
+                point: CGPoint(x: fixedPosition, y: positions[i].y - yCenterOffset + offset),
                 align: textAlign,
                 attributes: [NSAttributedStringKey.font: labelFont, NSAttributedStringKey.foregroundColor: labelTextColor])
         }
