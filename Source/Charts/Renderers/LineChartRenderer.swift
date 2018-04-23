@@ -426,6 +426,77 @@ open class LineChartRenderer: LineRadarRenderer
                     context.setStrokeColor(dataSet.color(atIndex: 0).cgColor)
                     context.strokePath()
                 }
+                
+                // Vertical lines
+                context.beginPath()
+                context.setLineWidth(dataSet.lineWidth / 2.5)
+                var firstPoint = true
+                
+                for x in stride(from: _xBounds.min, through: _xBounds.range + _xBounds.min, by: 1)
+                {
+                    e1 = dataSet.entryForIndex(x == 0 ? 0 : (x - 1))
+                    e2 = dataSet.entryForIndex(x)
+                    
+                    if e1 == nil || e2 == nil { continue }
+                    
+                    let pt = CGPoint(
+                        x: CGFloat(e1.x),
+                        y: CGFloat(e1.y * phaseY)
+                        ).applying(valueToPixelMatrix)
+                    
+                    if firstPoint
+                    {
+                        context.move(to: pt)
+                        firstPoint = false
+                    }
+                    else
+                    {
+                        context.move(to: pt)
+                        context.addLine(to: CGPoint(x: pt.x, y: 500))
+                        context.move(to: pt)
+                    }
+                }
+                
+                if !firstPoint
+                {
+                    context.setStrokeColor(dataSet.color(atIndex: 0).cgColor)
+                    context.strokePath()
+                }
+            }
+            // Vertical lines
+            context.beginPath()
+            context.setLineWidth(dataSet.lineWidth / 2.5)
+            var firstPoint = true
+            
+            for x in stride(from: _xBounds.min, through: _xBounds.range + _xBounds.min, by: 1)
+            {
+                e1 = dataSet.entryForIndex(x == 0 ? 0 : (x - 1))
+                e2 = dataSet.entryForIndex(x)
+                
+                if e1 == nil || e2 == nil { continue }
+                
+                let pt = CGPoint(
+                    x: CGFloat(e1.x),
+                    y: CGFloat(e1.y * phaseY)
+                    ).applying(valueToPixelMatrix)
+                
+                if firstPoint
+                {
+                    context.move(to: pt)
+                    firstPoint = false
+                }
+                else
+                {
+                    context.move(to: pt)
+                    context.addLine(to: CGPoint(x: pt.x, y: 500))
+                    context.move(to: pt)
+                }
+            }
+            
+            if !firstPoint
+            {
+                context.setStrokeColor(dataSet.color(atIndex: 0).cgColor)
+                context.strokePath()
             }
         }
         
